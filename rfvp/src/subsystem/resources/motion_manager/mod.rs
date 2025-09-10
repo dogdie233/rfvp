@@ -259,7 +259,7 @@ impl MotionManager {
     ) {
         self.snow_motion_container.push_motion(
             id, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15, a16, a17, a18,
-            screen_width, screen_height,
+            screen_width as i32, screen_height as i32,
         )
     }
 
@@ -440,7 +440,7 @@ impl MotionManager {
 
         match sprite.get_type() {
             PrimType::PrimTypeGroup => {
-                let mut child = sprite.get_child();
+                let mut child = sprite.get_first_child_idx();
                 if child != INVAILD_PRIM_HANDLE {
                     loop {
                         let p = self.prim_manager.get_prim(child);
@@ -449,7 +449,7 @@ impl MotionManager {
                         }
 
                         let p = self.prim_manager.get_prim_immutable(child);
-                        child = p.get_grand_son();
+                        child = p.get_next_sibling_idx();
                         if child == INVAILD_PRIM_HANDLE {
                             return false;
                         }
